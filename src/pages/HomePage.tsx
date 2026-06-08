@@ -1,12 +1,48 @@
-import { AppLayout } from '../layouts/AppLayout';
+import { AppLayout } from "../layouts/AppLayout";
+import { useShoppingLists } from "../hooks/useShoppingLists";
+import { CreateListForm } from "../components/shopping/CreateListForm";
 
 export function HomePage() {
+  const {
+    lists,
+    createList,
+    deleteList,
+  } = useShoppingLists();
+
   return (
     <AppLayout>
       <div className="p-4">
-        <h1 className="text-3x1 font-bold">Julieta List App</h1>
+        <h1 className="text-2xl font-bold">
+          Mis Listas
+        </h1>
 
-        <p className="mt-2">Sprint 1 working jojojo</p>
+        <div className="mt-4">
+          <CreateListForm
+            onCreate={createList}
+          />
+        </div>
+
+        <div className="mt-6 space-y-2">
+          {lists.map((list) => (
+            <div
+              key={list.id}
+              className="flex items-center justify-between rounded border p-3"
+            >
+              <span>
+                {list.name}
+              </span>
+
+              <button
+                onClick={() =>
+                  deleteList(list.id)
+                }
+                className="text-red-600"
+              >
+                Eliminar
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
     </AppLayout>
   );
