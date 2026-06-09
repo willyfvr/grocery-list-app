@@ -1,6 +1,7 @@
 import { AppLayout } from "../layouts/AppLayout";
 import { useShoppingLists } from "../hooks/useShoppingLists";
 import { CreateListForm } from "../components/shopping/CreateListForm";
+import { Link } from "react-router-dom";
 
 export function HomePage() {
   const {
@@ -28,10 +29,13 @@ export function HomePage() {
               key={list.id}
               className="flex items-center justify-between rounded border p-3"
             >
-              <span>
+              {/* <span>
                 {list.name}
-              </span>
+              </span> */}
 
+              <Link to={`/list/${list.id}`}>
+                {list.name}
+              </Link>  
               <button
                 onClick={() =>
                   deleteList(list.id)
