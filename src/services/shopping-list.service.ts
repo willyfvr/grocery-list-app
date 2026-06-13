@@ -12,7 +12,15 @@ export const shoppingListService = {
 
     return JSON.parse(data);
   },
-
+  
+  getById(id: string): ShoppingList | undefined {
+    const lists = this.getAll();
+    return lists.find(
+      (list) => {
+        list.id === id
+      })
+  },
+  
   saveAll(lists: ShoppingList[]) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(lists));
   },
