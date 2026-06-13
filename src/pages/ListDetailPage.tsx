@@ -4,9 +4,12 @@ import { shoppingListService } from "../services/shopping-list.service";
 
 export function ListDetailPage() {
   const { id } = useParams();
-  const lists = shoppingListService.getAll();
+  /* TODO: this line should be delete  */
+  //const lists = shoppingListService.getAll();
 
-  const list = lists.find((list) => list.id === id);
+  const list = id
+    ? shoppingListService.getById(id)
+    : undefined;
 
   if (!list) {
     return (
