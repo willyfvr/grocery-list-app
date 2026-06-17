@@ -3,6 +3,7 @@ import { useItems } from "../hooks/useItems";
 import { AppLayout } from "../layouts/AppLayout";
 import { shoppingListService } from "../services/shopping-list.service";
 import { CreateItemForm } from "../components/shopping/CreateItemForm";
+import { getStatusLabel} from "../utils/item-status";
 
 export function ListDetailPage() {
   const { id } = useParams();
@@ -39,7 +40,13 @@ export function ListDetailPage() {
       <div className="mt-4">
         {items.map((item) => (
           <div key={item.id} className="border rounded p-2 mt-2">
-            {item.name}
+            <div>
+              {item.name}
+            </div>
+            
+            <div>
+              {getStatusLabel(item.status)}
+            </div>
           </div>
         ))}
       </div>

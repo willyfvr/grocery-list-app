@@ -22,12 +22,12 @@ export function useItems(listId: string) {
 
     const allItems = itemService.getAll();
 
-    const updatedItem = [
+    const updatedItems = [
       ...allItems,
       newItem,
     ];
 
-    itemService.saveAll(updatedItem);
+    itemService.saveAll(updatedItems);
 
     setItems(itemService.getByListId(listId));
   };
