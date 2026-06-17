@@ -1,7 +1,7 @@
-// 
+//
 import type { Item } from "../types/item";
 
-const STORAGE_KEY = "item";
+const STORAGE_KEY = "items";
 
 export const itemService = {
   getAll(): Item[] {
@@ -14,7 +14,19 @@ export const itemService = {
     return JSON.parse(data);
   },
 
-  saveAll(item: Item[]) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(item));
+  getById(id: string): Item | undefined {
+    const items = this.getAll();
+
+    return items.find((item) => item.id === id);
+  },
+
+  saveAll(items: Item[]) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+  },
+
+  getByListId(listId: string): Item[] {
+    const items = this.getAll();
+
+    return items.filter((item) => item.listId === listId);
   },
 };
