@@ -15,3 +15,17 @@ export function getStatusLabel(status: ItemStatus): string {
       return "";
   }
 }
+
+export function getNextStatus(status: ItemStatus): ItemStatus {
+
+  switch (status) {
+    case "pending" :
+      return "buying";
+    
+    case "buying":
+      return "purchased";
+
+    case "purchased":
+      return "pending";
+  }
+}

@@ -15,7 +15,11 @@ export function ListDetailPage() {
 
   const list = id ? shoppingListService.getById(id) : undefined;
 
-  const { items, createItem } = useItems(list?.id ?? "");
+  const { 
+    items, 
+    createItem,
+    updateItemStatus
+   } = useItems(list?.id ?? "");
 
   if (!list) {
     return (
@@ -44,9 +48,13 @@ export function ListDetailPage() {
               {item.name}
             </div>
             
-            <div>
+            {/* <div>
               {getStatusLabel(item.status)}
-            </div>
+            </div> */}
+
+            <button onClick={() => updateItemStatus(item.id)}>
+              {getStatusLabel(item.status)}
+            </button>
           </div>
         ))}
       </div>

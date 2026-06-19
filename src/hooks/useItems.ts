@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { itemService } from "../services/item.service";
 import type { Item } from "../types/item";
 
+import { getNextStatus } from "../utils/item-status";
+
 export function useItems(listId: string) {
   const [items, setItems] = useState<Item[]>([]);
 
@@ -13,19 +15,35 @@ export function useItems(listId: string) {
 
   const createItem = (name: string) => {
     const newItem: Item = {
-      id:crypto.randomUUID(),
+      id: crypto.randomUUID(),
       listId,
       name,
       status: "pending",
       createdAt: new Date().toISOString(),
-    }
+    };
 
     const allItems = itemService.getAll();
 
-    const updatedItems = [
-      ...allItems,
-      newItem,
-    ];
+    const updatedItems = [...allItems, newItem];
+
+    itemService.saveAll(updatedItems);
+
+    setItems(itemService.getByListId(listId));
+  };
+
+  const updateItemStatus = (itemId: string) => {
+    const allItems = itemService.getAll();
+
+    const updatedItems = allItems.map((item) => {
+      if (item.id !== itemId) {
+        return item;
+      }
+
+      return {
+        ...item,
+        status: getNextStatus(item.status),
+      };
+    });
 
     itemService.saveAll(updatedItems);
 
@@ -35,5 +53,6 @@ export function useItems(listId: string) {
   return {
     items,
     createItem,
+    updateItemStatus
   };
 }
