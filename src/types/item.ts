@@ -1,7 +1,6 @@
-export type ItemStatus =
-  | "pending"
-  | "buying"
-  | "purchased";
+import { ITEM_STATUS } from "../constants/item-status";
+
+export type ItemStatus = typeof ITEM_STATUS[keyof typeof ITEM_STATUS];
 
   export interface Item {
     id: string;
