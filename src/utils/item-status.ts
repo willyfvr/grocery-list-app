@@ -1,14 +1,15 @@
+import { ITEM_STATUS } from "../constants/item-status";
 import type { ItemStatus } from "../types/item";
 
 export function getStatusLabel(status: ItemStatus): string {
   switch (status) {
-    case "pending":
+    case ITEM_STATUS.PENDING:
       return "🟡 Pendiente";
       
-    case "buying":
+    case ITEM_STATUS.BUYING:
       return "🔵 Comprando";
 
-    case "purchased":
+    case ITEM_STATUS.PURCHASED:
       return "🟢 Comprado";
 
     default:
@@ -19,13 +20,13 @@ export function getStatusLabel(status: ItemStatus): string {
 export function getNextStatus(status: ItemStatus): ItemStatus {
 
   switch (status) {
-    case "pending" :
-      return "buying";
+    case ITEM_STATUS.PENDING :
+      return ITEM_STATUS.BUYING;
     
-    case "buying":
-      return "purchased";
+    case ITEM_STATUS.BUYING:
+      return ITEM_STATUS.PURCHASED;
 
-    case "purchased":
-      return "pending";
+    case ITEM_STATUS.PURCHASED:
+      return ITEM_STATUS.PENDING;
   }
 }

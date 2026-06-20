@@ -3,6 +3,7 @@ import { itemService } from "../services/item.service";
 import type { Item } from "../types/item";
 
 import { getNextStatus } from "../utils/item-status";
+import { ITEM_STATUS } from "../constants/item-status";
 
 export function useItems(listId: string) {
   const [items, setItems] = useState<Item[]>([]);
@@ -18,7 +19,7 @@ export function useItems(listId: string) {
       id: crypto.randomUUID(),
       listId,
       name,
-      status: "pending",
+      status: ITEM_STATUS.PENDING,
       createdAt: new Date().toISOString(),
     };
 
