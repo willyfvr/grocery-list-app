@@ -1,18 +1,16 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { CreateItemForm } from "../components/shopping/CreateItemForm";
+import { ShoppingItemCard } from "../components/shopping/ShoppingItemCard";
 import { ITEM_STATUS } from "../constants/item-status";
 import { useItems } from "../hooks/useItems";
 import { AppLayout } from "../layouts/AppLayout";
 import { shoppingListService } from "../services/shopping-list.service";
-import { getStatusLabel } from "../utils/item-status";
 
 export function ListDetailPage() {
   const [showPurchased, setShowPurchased] = useState(true);
 
   const { id } = useParams();
-
-  // const lists = shoppingListService.getAll();
 
   const list = id ? shoppingListService.getById(id) : undefined;
 
@@ -56,25 +54,13 @@ export function ListDetailPage() {
       </label>
 
       <div className="mt-4">
-        {visibleItems.map((item) => {
-          const isPurchased = item.status === ITEM_STATUS.PURCHASED;
-
-          return (
-          <div
+        {visibleItems.map((item) => (
+          <ShoppingItemCard
             key={item.id}
-            className={`
-            border rounded p-2 mt-2 
-            ${isPurchased ? "opacity-50" : ""}
-          `}
-          >
-            <div
-              className={isPurchased ? "line-through" : ""}>{item.name}</div>
-
-            <button onClick={() => updateItemStatus(item.id)}>
-              {getStatusLabel(item.status)}
-            </button>
-          </div>
-        )})}
+            item={item}
+            onStatusChange={updateItemStatus}
+          />
+        ))}
       </div>
     </AppLayout>
   );
